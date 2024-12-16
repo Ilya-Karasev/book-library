@@ -21,7 +21,7 @@ public class Reservation extends BaseEntity {
         this.expiry_date = expiry_date;
         this.is_active = is_active;
     }
-    protected Reservation() {
+    public Reservation() {
     }
     @Column(name = "Reservation Date")
     public LocalDate getReservation_date() {

@@ -38,8 +38,6 @@ public class User extends BaseEntity {
         this.membership_date = membership_date;
         this.phone_number = phone_number;
         this.address = address;
-        this.rental = rental;
-        this.reservation = reservation;
     }
     protected User(){
     }

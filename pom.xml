@@ -44,11 +44,6 @@
 	</dependencyManagement>
 	<dependencies>
 		<dependency>
-			<groupId>com.example</groupId>
-			<artifactId>book-library</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
@@ -149,16 +144,6 @@
 			<version>20.1</version>
 		</dependency>
 
-		<dependency>
-			<groupId>io.grpc</groupId>
-			<artifactId>grpc-netty</artifactId>
-			<version>1.58.0</version>
-		</dependency>
-		<dependency>
-			<groupId>io.grpc</groupId>
-			<artifactId>grpc-stub</artifactId>
-			<version>1.58.0</version>
-		</dependency>
 		<dependency> <!-- necessary for Java 9+ -->
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>annotations-api</artifactId>
@@ -203,21 +188,33 @@
 			<artifactId>hibernate-validator</artifactId>
 			<version>4.0.2.GA</version>
 		</dependency>
+		<!-- gRPC dependencies -->
 		<dependency>
-			<groupId>net.devh</groupId>
-			<artifactId>grpc-server-spring-boot-starter</artifactId>
-			<version>2.9.0.RELEASE</version>
+			<groupId>io.grpc</groupId>
+			<artifactId>grpc-netty-shaded</artifactId>
+			<version>1.58.0</version>
 		</dependency>
 		<dependency>
 			<groupId>io.grpc</groupId>
 			<artifactId>grpc-protobuf</artifactId>
-			<version>${grpc.version}</version>
+			<version>1.58.0</version>
 		</dependency>
 		<dependency>
 			<groupId>io.grpc</groupId>
-			<artifactId>protoc-gen-grpc-java</artifactId>
-			<version>1.68.2</version>
-			<type>pom</type>
+			<artifactId>grpc-stub</artifactId>
+			<version>1.58.0</version>
+		</dependency>
+		<dependency>
+			<groupId>io.grpc</groupId>
+			<artifactId>grpc-api</artifactId>
+			<version>1.58.0</version> <!-- Используйте актуальную версию -->
+		</dependency>
+
+		<!-- Protobuf plugin for generating Java classes -->
+		<dependency>
+			<groupId>com.google.protobuf</groupId>
+			<artifactId>protobuf-java</artifactId>
+			<version>3.19.6</version>
 		</dependency>
 	</dependencies>
 	<build>
@@ -238,6 +235,11 @@
 				<groupId>org.xolstice.maven.plugins</groupId>
 				<artifactId>protobuf-maven-plugin</artifactId>
 				<version>0.6.1</version>
+				<configuration>
+					<protocArtifact>com.google.protobuf:protoc:3.21.4:exe:windows-x86_64</protocArtifact>
+					<pluginId>grpc-java</pluginId>
+					<pluginArtifact>io.grpc:protoc-gen-grpc-java:1.58.0:exe:windows-x86_64</pluginArtifact>
+				</configuration>
 				<executions>
 					<execution>
 						<goals>
@@ -246,11 +248,6 @@
 						</goals>
 					</execution>
 				</executions>
-				<configuration>
-					<protocExecutable>C:\protoc-29.1-win64\bin\protoc.exe</protocExecutable>
-					<pluginId>grpc-java</pluginId>
-					<pluginExecutable>C:\protoc-29.1-win64\bin\protoc-gen-grpc-java-1.68.2-windows-x86_64.exe</pluginExecutable>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>

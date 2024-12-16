@@ -25,7 +25,7 @@ public class Rental extends BaseEntity {
         this.extended_times = extended_times;
         this.is_returned = is_returned;
     }
-    protected Rental() {
+    public Rental() {
     }
     @Column(name = "Reservation Date")
     public LocalDate getRental_date() {

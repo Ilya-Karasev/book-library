@@ -1,0 +1,125 @@
+syntax = "proto3";
+
+package library;
+
+option java_multiple_files = true;
+option java_package = "com.example.musiclibrary";
+option java_outer_classname = "LibraryProto";
+option optimize_for = SPEED;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+service UserService {
+    rpc findUser (UserNameRequest) returns (UserResponse);
+    rpc getAllUsers (EmptyRequest) returns (UserListResponse);
+}
+
+service BookService {
+    rpc findBook (BookTitleRequest) returns (BookResponse);
+    rpc getAllBooks (EmptyRequest) returns (BookListResponse);
+}
+
+service RentalService {
+    rpc getRental (RentalRequest) returns (RentalResponse);
+    rpc getAllRentals (EmptyRequest) returns (RentalListResponse);
+    rpc addRental (RentalCheckRequest) returns (RentalCheckResponse);
+}
+
+service ReservationService {
+    rpc getReservation (ReservationRequest) returns (ReservationResponse);
+    rpc getAllReservations (EmptyRequest) returns (ReservationListResponse);
+    rpc addReservation (ReservationCheckRequest) returns (ReservationCheckResponse);
+}
+
+message UserNameRequest {
+    string name = 1;
+}
+
+message EmptyRequest {}
+
+message UserResponse {
+    string name = 1;
+    string email = 2;
+    string phone_number = 3;
+    string address = 4;
+    string role = 5;
+}
+
+message UserListResponse {
+    repeated UserResponse users = 1;
+}
+
+message BookTitleRequest {
+    string title = 1;
+}
+
+message BookResponse {
+    string title = 1;
+    string author = 2;
+    string publisher = 3;
+    int32 publication_year = 4;
+    string genre = 5;
+    string description = 6;
+    optional int32 available_copies = 7;
+}
+
+message BookListResponse {
+    repeated BookResponse books = 1;
+}
+
+message RentalResponse {
+    string id = 1;
+    string rental_date = 2;
+    string due_date = 3;
+    string return_date = 4;
+    optional int32 extended_times = 5;
+    bool is_returned = 6;
+    string user = 7;
+    string book = 8;
+}
+
+message RentalRequest {
+    string id = 1;
+}
+
+message RentalListResponse {
+    repeated RentalResponse rentals = 1;
+}
+
+message RentalCheckRequest {
+    string user = 1;
+    string book = 2;
+}
+
+message RentalCheckResponse {
+    bool success = 1;
+    string receipt = 2;
+}
+
+message ReservationResponse {
+    string id = 1;
+    string reservation_date = 2;
+    string expiry_date = 3;
+    bool is_active = 4;
+    string user = 5;
+    string book = 6;
+}
+
+message ReservationRequest {
+    string id = 1;
+}
+
+message ReservationListResponse {
+    repeated ReservationResponse reservations = 1;
+}
+
+message ReservationCheckRequest {
+    string user = 1;
+    string book = 2;
+}
+
+message ReservationCheckResponse {
+    bool success = 1;
+    string receipt = 2;
+}
